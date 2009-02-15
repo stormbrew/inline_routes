@@ -1,0 +1,41 @@
+InlineRoutes
+============
+
+This plugin makes it possible to setup your routes inline in your controllers.
+
+Installing
+==========
+Install this plugin as usual, then add map.inline_routes to your routes.rb file
+where you would normally place your routes. Then, in the controllers you define your
+routes by calling inline_draw with a block that takes a map object and allows
+you to define your routes at the top of that file. See the example files below.
+
+
+Example
+=======
+
+routes.rb:
+------------------------------------
+ActionController::Routing::Routes.draw do |map|
+  map.inline_routes
+  
+  map.connect ':controller/:action/:id'
+  map.connect ':controller/:action/:id.:format'
+end
+
+------------------------------------
+
+test_controller.rb
+------------------------------------
+ActionController::Routing::Routes.inline_draw do |map|
+  map.root # Note: No need to add :controller => 'test' here.
+end
+
+class HomeController < ApplicationController
+  def index
+  end
+end
+------------------------------------
+
+
+Copyright (c) 2009 Graham Batty (StormBrew), released under the MIT license

@@ -1,0 +1,1 @@
+puts("You will need to add map.inline_routes to your routes file for this plugin to start working. Please take a look at the README for more information.")

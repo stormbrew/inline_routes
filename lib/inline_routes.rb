@@ -69,7 +69,11 @@ module ::ActionController
 			
 			def reload
         if @routes_last_modified && configuration_file
-          mtimes = [File.stat(configuration_file).mtime]
+          mtimes = if (configuration_file.kind_of? Array)
+            configuration_file.collect {|f| File.stat(f).mtime }
+          else
+            File.stat(configuration_file).mtime
+          end
 					mtimes += ::ActionController::Routing.possible_controllers.collect {|controller| File.stat_load_path("#{controller}_controller.rb").mtime }
 					mtime = mtimes.max
           # if it hasn't been changed, then just return
